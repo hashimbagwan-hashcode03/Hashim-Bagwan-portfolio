@@ -1,316 +1,128 @@
-// import { motion } from "framer-motion";
-
-// const skillGroups = [
-//   {
-//     category: "AI & Machine Learning",
-//     icon: "🧠",
-//     skills: [
-//       { name: "Python", level: 95 },
-//       { name: "PyTorch", level: 82 },
-//       { name: "TensorFlow", level: 75 },
-//       { name: "HuggingFace", level: 80 },
-//       { name: "Scikit-learn", level: 90 },
-//       { name: "OpenCV", level: 72 },
-//     ],
-//   },
-//   {
-//     category: "Data Science",
-//     icon: "⚙️",
-//     skills: [
-//       { name: "Pandas", level: 92 },
-//       { name: "NumPy", level: 90 },
-//       { name: "SQL", level: 85 },
-//       { name: "Apache Spark", level: 68 },
-//       { name: "Kafka", level: 65 },
-//       { name: "PostgreSQL", level: 80 },
-//     ],
-//   },
-//   {
-//     category: "Web Development",
-//     icon: "🌐",
-//     skills: [
-//       { name: "React", level: 85 },
-//       { name: "Tailwind CSS", level: 88 },
-//       { name: "FastAPI", level: 82 },
-//       { name: "Node.js", level: 70 },
-//       { name: "TypeScript", level: 73 },
-//       { name: "Next.js", level: 68 },
-//     ],
-//   },
-//   {
-//     category: "Tools & DevOps",
-//     icon: "🛠️",
-//     skills: [
-//       { name: "Git", level: 90 },
-//       { name: "Docker", level: 75 },
-//       { name: "Linux", level: 78 },
-//       { name: "VS Code", level: 95 },
-//       { name: "Jupyter", level: 92 },
-//       { name: "AWS (Basics)", level: 60 },
-//     ],
-//   },
-// ];
-
-// function SkillBar({ name, level, delay }) {
-//   return (
-//     <div className="space-y-1.5">
-//       <div className="flex items-center justify-between">
-//         <span className="text-sm text-gray-300 font-medium">{name}</span>
-//         <span className="text-xs text-gray-600 font-mono">{level}%</span>
-//       </div>
-//       <div className="h-1.5 w-full bg-white/5 rounded-full overflow-hidden">
-//         <motion.div
-//           initial={{ width: 0 }}
-//           whileInView={{ width: `${level}%` }}
-//           viewport={{ once: true }}
-//           transition={{ duration: 1, delay, ease: "easeOut" }}
-//           className="h-full rounded-full bg-gradient-to-r from-indigo-500 to-violet-500"
-//         />
-//       </div>
-//     </div>
-//   );
-// }
-
-// function Skills() {
-//   return (
-//     <section id="skills" className="py-28 bg-black relative">
-//       <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-white/8 to-transparent" />
-
-//       <div className="max-w-6xl mx-auto px-6">
-//         <motion.div
-//           initial={{ opacity: 0, y: 30 }}
-//           whileInView={{ opacity: 1, y: 0 }}
-//           viewport={{ once: true }}
-//           transition={{ duration: 0.6 }}
-//           className="text-center mb-16"
-//         >
-//           <span className="inline-block px-3 py-1 text-xs font-semibold tracking-widest text-indigo-400 uppercase bg-indigo-400/10 border border-indigo-400/20 rounded-full mb-4">
-//             Skills
-//           </span>
-//           <h2 className="text-4xl sm:text-5xl font-black text-white mb-4">
-//             My Tech Stack
-//           </h2>
-//           <p className="text-gray-500 max-w-xl mx-auto">
-//             Tools and technologies I use to build intelligent, production-ready systems.
-//           </p>
-//         </motion.div>
-
-//         <div className="grid md:grid-cols-2 gap-6">
-//           {skillGroups.map((group, gi) => (
-//             <motion.div
-//               key={group.category}
-//               initial={{ opacity: 0, y: 30 }}
-//               whileInView={{ opacity: 1, y: 0 }}
-//               viewport={{ once: true }}
-//               transition={{ duration: 0.5, delay: gi * 0.1 }}
-//               className="bg-[#0c0c0c] border border-white/[0.07] rounded-2xl p-6 hover:border-white/15 transition-colors duration-300"
-//             >
-//               <div className="flex items-center gap-3 mb-5">
-//                 <span className="text-2xl">{group.icon}</span>
-//                 <h3 className="text-white font-bold">{group.category}</h3>
-//               </div>
-//               <div className="space-y-3.5">
-//                 {group.skills.map((skill, si) => (
-//                   <SkillBar
-//                     key={skill.name}
-//                     name={skill.name}
-//                     level={skill.level}
-//                     delay={gi * 0.1 + si * 0.07}
-//                   />
-//                 ))}
-//               </div>
-//             </motion.div>
-//           ))}
-//         </div>
-
-//         {/* Badge cloud */}
-//         <motion.div
-//           initial={{ opacity: 0, y: 20 }}
-//           whileInView={{ opacity: 1, y: 0 }}
-//           viewport={{ once: true }}
-//           transition={{ duration: 0.6, delay: 0.3 }}
-//           className="mt-10 bg-[#0c0c0c] border border-white/[0.07] rounded-2xl p-6"
-//         >
-//           <p className="text-xs font-semibold tracking-widest text-gray-600 uppercase mb-4">
-//             Also familiar with
-//           </p>
-//           <div className="flex flex-wrap gap-2">
-//             {[
-//               "Matplotlib", "Seaborn", "Plotly", "Langchain", "Pinecone",
-//               "Redis", "MongoDB", "GraphQL", "Tailwind", "Vite", "Vercel",
-//               "GitHub Actions", "Streamlit", "Flask", "Django",
-//             ].map((tech) => (
-//               <span
-//                 key={tech}
-//                 className="px-3 py-1.5 rounded-lg bg-white/[0.04] border border-white/[0.07] text-gray-400 text-xs font-medium hover:bg-indigo-500/10 hover:text-indigo-400 hover:border-indigo-500/25 transition-all duration-200 cursor-default"
-//               >
-//                 {tech}
-//               </span>
-//             ))}
-//           </div>
-//         </motion.div>
-//       </div>
-//     </section>
-//   );
-// }
-
-// export default Skills;
-
-//---------------c-----------------------------------------------//
-
 import { motion } from "framer-motion";
 
-const skillGroups = [
+const skills = [
   {
-    category: "AI & Machine Learning",
-    icon: "🧠",
-    skills: [
-      { name: "Python", level: "Advanced" },
-      { name: "PyTorch", level: "Intermediate" },
-      { name: "TensorFlow", level: "Intermediate" },
-      { name: "HuggingFace", level: "Intermediate" },
-      { name: "Scikit-learn", level: "Advanced" },
-      { name: "OpenCV", level: "Intermediate" },
-    ],
+    name: "Python",
+    icon: "🐍",
+    level: 96,
+    desc: "Core language for data science, ML model development, scripting, and building end-to-end AI pipelines.",
   },
   {
-    category: "Data Engineering",
-    icon: "⚙️",
-    skills: [
-      { name: "Pandas", level: "Advanced" },
-      { name: "NumPy", level: "Advanced" },
-      { name: "SQL", level: "Advanced" },
-      { name: "Apache Spark", level: "Beginner" },
-      { name: "Kafka", level: "Beginner" },
-      { name: "PostgreSQL", level: "Intermediate" },
-    ],
+    name: "TensorFlow / Keras",
+    icon: "🔶",
+    level: 92,
+    desc: "Building and training deep neural networks for classification, regression, and generative models at scale.",
   },
   {
-    category: "Web Development",
-    icon: "🌐",
-    skills: [
-      { name: "React", level: "Advanced" },
-      { name: "Tailwind CSS", level: "Advanced" },
-      { name: "FastAPI", level: "Intermediate" },
-      { name: "Node.js", level: "Intermediate" },
-      { name: "TypeScript", level: "Intermediate" },
-      { name: "Next.js", level: "Beginner" },
-    ],
+    name: "PyTorch",
+    icon: "🔥",
+    level: 90,
+    desc: "Research-grade deep learning: custom architectures, transformers, GANs, and reinforcement learning agents.",
   },
   {
-    category: "Tools & DevOps",
-    icon: "🛠️",
-    skills: [
-      { name: "Git", level: "Advanced" },
-      { name: "Docker", level: "Intermediate" },
-      { name: "Linux", level: "Intermediate" },
-      { name: "VS Code", level: "Advanced" },
-      { name: "Jupyter", level: "Advanced" },
-      { name: "AWS", level: "Beginner" },
-    ],
+    name: "NLP & LLMs",
+    icon: "💬",
+    level: 88,
+    desc: "Fine-tuning large language models, building RAG pipelines, sentiment analysis, and text generation systems.",
+  },
+  {
+    name: "Computer Vision",
+    icon: "👁️",
+    level: 87,
+    desc: "Object detection, image segmentation, facial recognition, and real-time video analytics with OpenCV & YOLO.",
+  },
+  {
+    name: "Data Analysis",
+    icon: "📊",
+    level: 94,
+    desc: "Advanced analytics with Pandas, NumPy, Scikit-learn. Statistical modeling, A/B testing, and feature engineering.",
+  },
+  {
+    name: "MLOps & Cloud",
+    icon: "☁️",
+    level: 85,
+    desc: "Model deployment on AWS/GCP, CI/CD for ML, Docker, Kubernetes, MLflow tracking, and monitoring systems.",
+  },
+  {
+    name: "SQL & Big Data",
+    icon: "🗄️",
+    level: 89,
+    desc: "Complex queries, data warehousing, Spark, and handling large-scale datasets for training and analytics.",
   },
 ];
 
-function SkillItem({ name, level }) {
-  const levelColor =
-    level === "Advanced"
-      ? "text-emerald-400"
-      : level === "Intermediate"
-        ? "text-yellow-400"
-        : "text-gray-500";
-
+export function Skills() {
   return (
-    <div className="flex items-center justify-between px-3 py-2 rounded-lg bg-white/[0.03] border border-white/[0.06] hover:border-white/15 transition">
-      <span className="text-sm text-gray-300 font-medium">{name}</span>
-      <span className={`text-xs font-medium ${levelColor}`}>
-        {level}
-      </span>
-    </div>
-  );
-}
+    <section id="skills" className="section-shell relative">
+      <div className="hex-pattern" />
+      <div className="orb-teal" style={{ top: "-60px", left: "-80px", width: "300px", height: "300px" }} />
+      <div className="orb-cyan" style={{ bottom: "-40px", right: "-60px", width: "250px", height: "250px", opacity: 0.4 }} />
 
-function Skills() {
-  return (
-    <section id="skills" className="py-28 bg-black relative">
-      <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-white/8 to-transparent" />
-
-      <div className="max-w-6xl mx-auto px-6">
+      <div className="mx-auto max-w-7xl">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          transition={{ duration: 0.7 }}
+          className="text-center"
         >
-          <span className="inline-block px-3 py-1 text-xs font-semibold tracking-widest text-indigo-400 uppercase bg-indigo-400/10 border border-indigo-400/20 rounded-full mb-4">
-            Skills
+          <span className="section-badge">
+            <span style={{ color: "var(--cyan-glow)" }}>◆</span> Technical Arsenal
           </span>
-
-          <h2 className="text-4xl sm:text-5xl font-black text-white mb-4">
-            Technical Skills
-          </h2>
-
-          <p className="text-gray-500 max-w-xl mx-auto">
-            Technologies I use to design, build, and deploy real-world AI systems.
+          <h3 className="heading-section mt-6 text-4xl lg:text-5xl">
+            Skills &{" "}
+            <span className="glow-text">Expertise</span>
+          </h3>
+          <p className="mx-auto mt-5 max-w-2xl text-base" style={{ color: "var(--text-secondary)" }}>
+            Tools and technologies I use daily to build intelligent systems,
+            train state-of-the-art models, and deploy production ML pipelines.
           </p>
         </motion.div>
 
-        {/* Skill Groups */}
-        <div className="grid md:grid-cols-2 gap-6">
-          {skillGroups.map((group, gi) => (
+        {/* Skills Grid */}
+        <div className="mt-16 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          {skills.map((skill, i) => (
             <motion.div
-              key={group.category}
-              initial={{ opacity: 0, y: 30 }}
+              key={skill.name}
+              initial={{ opacity: 0, y: 25 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: gi * 0.1 }}
-              className="bg-[#0c0c0c] border border-white/[0.07] rounded-2xl p-6 hover:border-white/15 transition"
+              transition={{ duration: 0.5, delay: i * 0.06 }}
+              whileHover={{ y: -6, scale: 1.02 }}
+              className="skill-card"
             >
-              <div className="flex items-center gap-3 mb-5">
-                <span className="text-2xl">{group.icon}</span>
-                <h3 className="text-white font-bold">{group.category}</h3>
+              <div className="flex items-center gap-3 mb-4">
+                <div className="skill-icon-wrap">
+                  <span className="text-lg">{skill.icon}</span>
+                </div>
+                <div>
+                  <h4 className="text-sm font-bold" style={{ color: "var(--text-bright)", fontFamily: "var(--font-display)" }}>
+                    {skill.name}
+                  </h4>
+                  <p className="text-xs font-medium" style={{ color: "var(--cyan-glow)" }}>
+                    {skill.level}%
+                  </p>
+                </div>
               </div>
 
-              <div className="space-y-2.5">
-                {group.skills.map((skill) => (
-                  <SkillItem key={skill.name} {...skill} />
-                ))}
+              <div className="progress-bar mb-4">
+                <motion.div
+                  className="progress-fill"
+                  initial={{ width: 0 }}
+                  whileInView={{ width: `${skill.level}%` }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 1.4, delay: i * 0.08, ease: [0.25, 0.46, 0.45, 0.94] }}
+                />
               </div>
+
+              <p className="text-xs leading-6" style={{ color: "var(--text-muted)" }}>
+                {skill.desc}
+              </p>
             </motion.div>
           ))}
         </div>
-
-        {/* Tech Cloud */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          className="mt-10 bg-[#0c0c0c] border border-white/[0.07] rounded-2xl p-6"
-        >
-          <p className="text-xs font-semibold tracking-widest text-gray-600 uppercase mb-4">
-            Also familiar with
-          </p>
-
-          <div className="flex flex-wrap gap-2">
-            {[
-              "Matplotlib", "Seaborn", "Plotly", "Langchain", "Pinecone",
-              "Redis", "MongoDB", "GraphQL", "Vite", "Vercel",
-              "GitHub Actions", "Streamlit", "Flask", "Django",
-            ].map((tech) => (
-              <span
-                key={tech}
-                className="px-3 py-1.5 rounded-lg bg-white/[0.04] border border-white/[0.07] text-gray-400 text-xs font-medium hover:bg-indigo-500/10 hover:text-indigo-400 hover:border-indigo-500/25 transition"
-              >
-                {tech}
-              </span>
-            ))}
-          </div>
-        </motion.div>
       </div>
     </section>
   );
 }
-
-export default Skills;

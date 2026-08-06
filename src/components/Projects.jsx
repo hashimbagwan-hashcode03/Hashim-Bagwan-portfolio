@@ -1,148 +1,130 @@
 import { motion } from "framer-motion";
+import project1 from "../assets/project1.jfif";
+import project2 from "../assets/project2.png";
+import project3 from "../assets/project3.jfif";
 
 const projects = [
-    {
-        title: "SentimentAI",
-        description:
-            "Real-time sentiment analysis dashboard powered by a fine-tuned BERT model.",
-        tags: ["Python", "PyTorch", "FastAPI", "React"],
-        github: "https://github.com",
-        live: "https://example.com",
-        featured: true,
-    },
-    {
-        title: "DataVault",
-        description:
-            "Scalable ETL pipeline using Kafka & Spark for large-scale ML workflows.",
-        tags: ["Python", "Kafka", "Spark", "PostgreSQL"],
-        github: "https://github.com",
-        live: null,
-        featured: true,
-    },
-    {
-        title: "VisionBoard",
-        description:
-            "Real-time object detection app using YOLO v8 with React frontend.",
-        tags: ["Python", "YOLO", "React"],
-        github: "https://github.com",
-        live: "https://example.com",
-    },
-    {
-        title: "ChurnPredict",
-        description:
-            "ML system predicting churn with 94% accuracy + analytics dashboard.",
-        tags: ["Python", "XGBoost", "React"],
-        github: "https://github.com",
-    },
-    {
-        title: "LexiBot",
-        description:
-            "Context-aware chatbot using LoRA + streaming API.",
-        tags: ["HuggingFace", "FastAPI", "WebSocket"],
-        github: "https://github.com",
-    },
+  {
+    title: "Neural Sentinel",
+    desc: "Real-time anomaly detection system using LSTM autoencoders for cybersecurity threat analysis. Processes 1M+ events/sec with 99.2% accuracy.",
+    img: project1,
+    tag: "Deep Learning • Security",
+    metrics: "99.2% Accuracy",
+  },
+  {
+    title: "MedVision AI",
+    desc: "Computer vision pipeline for medical image analysis — detecting tumors in radiology scans using Vision Transformers with attention maps.",
+    img: project2,
+    tag: "Computer Vision • Healthcare",
+    metrics: "97.8% F1-Score",
+  },
+  {
+    title: "LinguaFlow NLP",
+    desc: "Multi-language sentiment analysis engine powered by fine-tuned BERT models. Processing 50K+ reviews daily for enterprise clients.",
+    img: project3,
+    tag: "NLP • Production ML",
+    metrics: "50K+ Daily Reviews",
+  },
 ];
 
-function ProjectCard({ project, featured }) {
-    return (
+export function Projects() {
+  return (
+    <section
+      id="projects"
+      className="section-shell"
+      style={{ background: "linear-gradient(180deg, var(--bg-primary), var(--bg-secondary), var(--bg-primary))" }}
+    >
+      <div className="grid-bg" />
+      <div className="orb-teal" style={{ top: "20%", left: "-80px", width: "300px", height: "300px" }} />
+
+      <div className="mx-auto max-w-7xl">
+        {/* Header */}
         <motion.div
-            whileHover={{ y: -8 }}
-            className={`group relative rounded-2xl border border-white/10 bg-[#0c0c0c] overflow-hidden ${featured ? "p-8 col-span-2" : "p-6"
-                }`}
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7 }}
+          className="mb-16"
         >
-            {/* Glow */}
-            <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition bg-gradient-to-br from-indigo-600/10 to-violet-600/10" />
-
-            {/* Title */}
-            <h3 className="text-white font-bold text-xl mb-2">
-                {project.title}
-            </h3>
-
-            {/* Desc */}
-            <p className="text-gray-400 text-sm mb-4">
-                {project.description}
-            </p>
-
-            {/* Tags */}
-            <div className="flex flex-wrap gap-2 mb-5">
-                {project.tags.map((tag) => (
-                    <span
-                        key={tag}
-                        className="text-xs px-2 py-1 rounded bg-white/5 text-gray-300"
-                    >
-                        {tag}
-                    </span>
-                ))}
-            </div>
-
-            {/* Links */}
-            <div className="flex gap-4 text-sm">
-                <a
-                    href={project.github}
-                    target="_blank"
-                    className="text-gray-400 hover:text-white"
-                >
-                    Code →
-                </a>
-                {project.live && (
-                    <a
-                        href={project.live}
-                        target="_blank"
-                        className="text-indigo-400 hover:text-indigo-300"
-                    >
-                        Live →
-                    </a>
-                )}
-            </div>
+          <span className="section-badge">
+            <span style={{ color: "var(--cyan-glow)" }}>◆</span> Featured Work
+          </span>
+          <h3 className="heading-section mt-6 text-4xl lg:text-5xl">
+            Selected{" "}
+            <span className="glow-text">Projects</span>
+          </h3>
+          <p className="mt-5 max-w-2xl text-base" style={{ color: "var(--text-secondary)" }}>
+            AI/ML systems built for real-world impact — from research prototypes
+            to production-grade machine learning pipelines.
+          </p>
         </motion.div>
-    );
+
+        {/* Project Cards */}
+        <div className="grid gap-8 lg:grid-cols-3">
+          {projects.map((project, i) => (
+            <motion.div
+              key={project.title}
+              initial={{ opacity: 0, y: 35 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.7, delay: i * 0.12 }}
+              whileHover={{ y: -10 }}
+              className="project-card group"
+            >
+              {/* Image */}
+              <div className="project-img-wrap">
+                <motion.img
+                  src={project.img}
+                  alt={project.title}
+                  whileHover={{ scale: 1.05 }}
+                  transition={{ duration: 0.5 }}
+                  className="h-52 w-full object-cover"
+                />
+                {/* Metric Badge */}
+                <div
+                  className="absolute bottom-3 right-3 z-10 px-3 py-1.5 text-xs font-bold"
+                  style={{
+                    background: "rgba(8, 30, 30, 0.8)",
+                    border: "1px solid rgba(0, 229, 255, 0.3)",
+                    borderRadius: "var(--radius-full)",
+                    color: "var(--cyan-glow)",
+                    backdropFilter: "blur(8px)",
+                  }}
+                >
+                  {project.metrics}
+                </div>
+              </div>
+
+              {/* Content */}
+              <div className="mt-5 px-1">
+                <span className="tag-pill">{project.tag}</span>
+
+                <h4 className="mt-4 text-lg font-bold" style={{ color: "var(--text-bright)", fontFamily: "var(--font-display)" }}>
+                  {project.title}
+                </h4>
+
+                <p className="mt-3 text-sm leading-7" style={{ color: "var(--text-muted)" }}>
+                  {project.desc}
+                </p>
+
+                <motion.a
+                  href="#contact"
+                  whileHover={{ x: 4 }}
+                  className="mt-5 inline-flex items-center gap-2 text-sm font-semibold transition-all duration-300"
+                  style={{ color: "var(--cyan-glow)" }}
+                  onMouseEnter={(e) => (e.currentTarget.style.textShadow = "0 0 15px rgba(0,229,255,0.3)")}
+                  onMouseLeave={(e) => (e.currentTarget.style.textShadow = "none")}
+                >
+                  View Case Study
+                  <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                    <path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </motion.a>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
 }
-
-function Projects() {
-    const featured = projects.filter((p) => p.featured);
-    const others = projects.filter((p) => !p.featured);
-
-    return (
-        <section id="projects" className="py-28 bg-black">
-            <div className="max-w-6xl mx-auto px-6">
-
-                {/* Header */}
-                <div className="text-center mb-16">
-                    <h2 className="text-4xl sm:text-5xl font-black text-white mb-4">
-                        Projects that matter
-                    </h2>
-                    <p className="text-gray-500 max-w-xl mx-auto">
-                        Not just demos — real systems solving real problems.
-                    </p>
-                </div>
-
-                {/* 🔥 Featured Projects */}
-                <div className="grid md:grid-cols-2 gap-6 mb-12">
-                    {featured.map((p) => (
-                        <ProjectCard key={p.title} project={p} featured />
-                    ))}
-                </div>
-
-                {/* Other Projects */}
-                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-                    {others.map((p) => (
-                        <ProjectCard key={p.title} project={p} />
-                    ))}
-                </div>
-
-                {/* CTA */}
-                <div className="text-center mt-12">
-                    <a
-                        href="https://github.com"
-                        target="_blank"
-                        className="inline-flex items-center gap-2 px-6 py-3 text-sm font-medium text-white rounded-xl bg-gradient-to-r from-indigo-600 to-violet-600 hover:opacity-90 transition"
-                    >
-                        View All Projects →
-                    </a>
-                </div>
-            </div>
-        </section>
-    );
-}
-
-export default Projects;
