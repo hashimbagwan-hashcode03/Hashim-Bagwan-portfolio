@@ -1,212 +1,135 @@
 import { motion } from "framer-motion";
 import heroImg from "../assets/hero.jfif";
 
-const stagger = {
-  hidden: {},
-  show: { transition: { staggerChildren: 0.12, delayChildren: 0.3 } },
-};
-
-const fadeUp = {
-  hidden: { opacity: 0, y: 35 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.9, ease: [0.25, 0.46, 0.45, 0.94] } },
-};
-
-/* Small neural-node dots for decoration */
-function NeuralDots() {
-  const dots = [
-    { top: "15%", left: "5%", size: 6, delay: 0 },
-    { top: "25%", left: "12%", size: 4, delay: 0.5 },
-    { top: "60%", left: "8%", size: 5, delay: 1 },
-    { top: "75%", left: "15%", size: 3, delay: 1.5 },
-    { top: "40%", right: "3%", size: 7, delay: 0.3 },
-    { top: "20%", right: "10%", size: 4, delay: 0.8 },
-    { top: "80%", right: "7%", size: 5, delay: 1.2 },
-    { top: "55%", right: "15%", size: 3, delay: 1.8 },
-  ];
-
-  return dots.map((d, i) => (
-    <motion.div
-      key={i}
-      className="neural-node-dim"
-      style={{ top: d.top, left: d.left, right: d.right, width: d.size, height: d.size }}
-      animate={{ opacity: [0.2, 0.7, 0.2], scale: [1, 1.3, 1] }}
-      transition={{ repeat: Infinity, duration: 3, delay: d.delay, ease: "easeInOut" }}
-    />
-  ));
-}
-
 export function Hero() {
   return (
-    <section
-      id="home"
-      className="relative min-h-screen overflow-hidden px-6 pb-20 pt-32 lg:px-10 lg:pt-40"
-    >
-      {/* ── Background Effects ── */}
-      <div className="grid-bg" />
-      <div className="scan-line" />
-      <NeuralDots />
+    <section id="home" className="relative min-h-screen pt-32 pb-20 px-6 lg:px-12 flex items-center justify-center overflow-hidden">
+      {/* Background Lighting & Grid */}
+      <div className="ambient-glow-top" />
+      <div className="absolute inset-0 bg-grid-pattern pointer-events-none" />
 
-      {/* Glow Orbs */}
-      <div className="orb-cyan" style={{ top: "-10%", left: "-5%", width: "500px", height: "500px" }} />
-      <div className="orb-teal" style={{ bottom: "-10%", right: "-5%", width: "400px", height: "400px" }} />
-
-      {/* ── Main Grid ── */}
-      <div className="mx-auto grid max-w-7xl items-center gap-16 lg:grid-cols-[1.1fr_1fr]">
-        {/* ── Left: Content ── */}
-        <motion.div variants={stagger} initial="hidden" animate="show" className="relative z-10">
+      <div className="mx-auto max-w-6xl w-full grid gap-12 lg:grid-cols-12 items-center relative z-10">
+        {/* Left Column: Intro & Headline */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7 }}
+          className="lg:col-span-7 flex flex-col items-start"
+        >
           {/* Status Badge */}
-          <motion.div variants={fadeUp} className="mb-8 flex items-center gap-3">
-            <div className="available-dot" />
-            <span
-              className="text-xs font-medium uppercase"
-              style={{ letterSpacing: "0.2em", color: "var(--text-muted)", fontFamily: "var(--font-body)" }}
-            >
-              Available for Research & Projects
+          <div className="mb-6 inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/80 border border-cyan-500/30 shadow-[0_0_15px_rgba(0,240,255,0.15)]">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-cyan-400"></span>
             </span>
-          </motion.div>
+            <span className="text-[11px] font-bold tracking-wider text-cyan-300 uppercase">
+              Open to AI/ML Engineering &amp; Research Roles
+            </span>
+          </div>
 
           {/* Headline */}
-          <motion.h1 variants={fadeUp} className="heading-editorial text-5xl sm:text-6xl lg:text-7xl xl:text-8xl">
-            <span style={{ color: "var(--text-bright)" }}>AI &</span>
-            <br />
-            <span className="glow-text animate-glow-pulse">Machine</span>
-            <br />
-            <span className="glow-text animate-glow-pulse">Learning</span>
-            <br />
-            <span style={{ color: "var(--text-bright)" }}>Engineer</span>
-          </motion.h1>
+          <h1 className="text-4xl sm:text-6xl lg:text-6xl font-extrabold tracking-tight text-white leading-[1.15] font-heading">
+            Architecting <br />
+            <span className="text-gradient-cyan">Next-Gen AI Systems</span> <br />
+            &amp; Deep Neural Networks.
+          </h1>
 
           {/* Subtitle */}
-          <motion.p
-            variants={fadeUp}
-            className="mt-6 text-lg font-medium"
-            style={{ color: "var(--cyan-soft)", fontFamily: "var(--font-body)" }}
-          >
-            Data Scientist • Deep Learning Researcher • MLOps
-          </motion.p>
+          <h2 className="mt-4 text-lg sm:text-xl font-semibold text-slate-300">
+            Hashim Bagwan — <span className="text-cyan-400">AI/ML Engineer &amp; Data Scientist</span>
+          </h2>
 
-          {/* Description */}
-          <motion.p
-            variants={fadeUp}
-            className="mt-5 max-w-lg text-base leading-8"
-            style={{ color: "var(--text-secondary)" }}
-          >
-            I build intelligent systems that transform raw data into actionable insights.
-            From neural networks to production ML pipelines — pushing the boundaries
-            of what machines can learn.
-          </motion.p>
+          <p className="mt-4 max-w-xl text-sm sm:text-base leading-relaxed text-slate-400 font-normal">
+            Specializing in Deep Learning, NLP, RAG architecture, and Computer Vision. I build resilient, high-throughput machine learning pipelines that translate complex datasets into measurable real-world performance.
+          </p>
 
-          {/* CTAs */}
-          <motion.div variants={fadeUp} className="mt-10 flex flex-wrap items-center gap-4">
-            <motion.a
-              href="#projects"
-              whileHover={{ scale: 1.05, y: -3 }}
-              whileTap={{ scale: 0.97 }}
-              className="btn-glow"
+          {/* Action CTAs */}
+          <div className="mt-8 flex flex-wrap items-center gap-4">
+            <a href="#projects" className="btn-primary-glow">
+              <span>View Selected Work</span>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </a>
+            <a href="#contact" className="btn-secondary-glass">
+              <span>Contact Me</span>
+            </a>
+            <a
+              href="/hashim-bagwan-cv.pdf"
+              download
+              className="text-xs font-bold text-slate-400 hover:text-cyan-400 transition-colors px-3 py-2"
             >
-              <span>View Projects</span>
-            </motion.a>
-            <motion.a
-              href="#contact"
-              whileHover={{ scale: 1.03 }}
-              className="btn-glass"
-            >
-              Contact Me →
-            </motion.a>
-          </motion.div>
+              Download CV 📥
+            </a>
+          </div>
 
-          {/* Stats Row */}
-          <motion.div variants={fadeUp} className="mt-14 flex gap-10">
-            {[
-              { num: "50+", label: "ML Models Built" },
-              { num: "10M+", label: "Data Points" },
-              { num: "15+", label: "Publications" },
-            ].map(({ num, label }) => (
-              <div key={label}>
-                <p className="stat-glow text-3xl lg:text-4xl">{num}</p>
-                <p className="mt-1 text-xs font-medium uppercase" style={{ letterSpacing: "0.1em", color: "var(--text-muted)" }}>
-                  {label}
-                </p>
-              </div>
-            ))}
-          </motion.div>
+          {/* Stats Bar */}
+          <div className="mt-12 pt-6 border-t border-white/10 grid grid-cols-3 gap-6 w-full max-w-md">
+            <div>
+              <div className="text-2xl sm:text-3xl font-extrabold text-cyan-400 font-heading">5+</div>
+              <div className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider mt-0.5">Years Experience</div>
+            </div>
+            <div>
+              <div className="text-2xl sm:text-3xl font-extrabold text-white font-heading">50+</div>
+              <div className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider mt-0.5">Models Deployed</div>
+            </div>
+            <div>
+              <div className="text-2xl sm:text-3xl font-extrabold text-emerald-400 font-heading">99.2%</div>
+              <div className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider mt-0.5">Top Accuracy</div>
+            </div>
+          </div>
         </motion.div>
 
-        {/* ── Right: Visual ── */}
+        {/* Right Column: Code & Visual Showcase Card */}
         <motion.div
-          initial={{ opacity: 0, x: 70, rotate: 2 }}
-          animate={{ opacity: 1, x: 0, rotate: 0 }}
-          transition={{ duration: 1.2, ease: [0.25, 0.46, 0.45, 0.94], delay: 0.2 }}
-          className="relative z-10"
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.7, delay: 0.2 }}
+          className="lg:col-span-5 relative"
         >
-          {/* Orbital Ring */}
-          <div
-            className="deco-ring deco-ring-glow animate-rotate-slow"
-            style={{ top: "-30px", left: "-30px", right: "-30px", bottom: "-30px" }}
-          />
-
-          {/* Profile Card */}
-          <motion.div
-            animate={{ y: [0, -14, 0] }}
-            transition={{ repeat: Infinity, duration: 7, ease: "easeInOut" }}
-            className="glass-card overflow-hidden p-4"
-          >
-            <img
-              src={heroImg}
-              alt="Hashim Bagwan — AI/ML Engineer"
-              className="h-[420px] w-full object-cover"
-              style={{ borderRadius: "var(--radius-lg)" }}
-            />
-          </motion.div>
-
-          {/* Floating Code Snippet */}
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 1, duration: 0.7 }}
-            className="code-editor absolute -left-10 bottom-10 w-60"
-            style={{ zIndex: 20 }}
-          >
-            <div className="code-editor-bar">
-              <span className="code-editor-dot" style={{ background: "#ff5f57" }} />
-              <span className="code-editor-dot" style={{ background: "#febc2e" }} />
-              <span className="code-editor-dot" style={{ background: "#28c840" }} />
-              <span className="ml-2 text-[10px]" style={{ color: "var(--text-muted)" }}>model.py</span>
-            </div>
-            <div className="code-editor-body">
-              <div><span className="code-keyword">import</span> torch</div>
-              <div><span className="code-keyword">class</span> <span className="code-function">NeuralNet</span>:</div>
-              <div className="pl-4"><span className="code-keyword">def</span> <span className="code-function">forward</span>(self, x):</div>
-              <div className="pl-8"><span className="code-keyword">return</span> self.model(x)</div>
-              <div><span className="cursor-blink" /></div>
-            </div>
-          </motion.div>
-
-          {/* Floating Accuracy Badge */}
-          <motion.div
-            initial={{ opacity: 0, y: 25 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.2, duration: 0.6 }}
-            className="absolute -right-6 top-12"
-            style={{ zIndex: 20 }}
-          >
-            <div className="glass-card flex items-center gap-3 px-5 py-3" style={{ borderRadius: "var(--radius-lg)" }}>
-              <div
-                className="flex h-10 w-10 items-center justify-center"
-                style={{
-                  background: "rgba(0, 229, 255, 0.1)",
-                  border: "1px solid rgba(0, 229, 255, 0.2)",
-                  borderRadius: "var(--radius-md)",
-                }}
-              >
-                <span className="text-lg">🧠</span>
+          {/* Glass Code Editor & Profile Container */}
+          <div className="modern-glass-panel p-5 relative overflow-hidden border border-cyan-500/20 shadow-2xl">
+            {/* Top Bar */}
+            <div className="flex items-center justify-between pb-3 mb-4 border-b border-white/10">
+              <div className="flex items-center gap-1.5">
+                <span className="w-2.5 h-2.5 rounded-full bg-red-500/80" />
+                <span className="w-2.5 h-2.5 rounded-full bg-yellow-500/80" />
+                <span className="w-2.5 h-2.5 rounded-full bg-green-500/80" />
+                <span className="ml-2 text-xs font-code text-slate-400">transformer_model.py</span>
               </div>
-              <div>
-                <p className="text-lg font-bold" style={{ color: "var(--cyan-glow)" }}>98.7%</p>
-                <p className="text-[10px] font-medium" style={{ color: "var(--text-muted)" }}>Model Accuracy</p>
+              <span className="text-[10px] font-code text-cyan-400 bg-cyan-500/10 px-2 py-0.5 rounded border border-cyan-500/20">
+                PyTorch v2.3
+              </span>
+            </div>
+
+            {/* Profile Image with subtle code overlay */}
+            <div className="relative rounded-xl overflow-hidden mb-4 h-64">
+              <img
+                src={heroImg}
+                alt="Hashim Bagwan — AI Engineer"
+                className="w-full h-full object-cover filter brightness-90 contrast-105"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#0b1120] via-transparent to-transparent" />
+              
+              <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between">
+                <span className="text-xs font-semibold text-white font-heading">
+                  Hashim Bagwan
+                </span>
+                <span className="text-[10px] font-bold text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded-full border border-emerald-500/30">
+                  Active ML Pipeline
+                </span>
               </div>
             </div>
-          </motion.div>
+
+            {/* Simulated Live Code Snippet */}
+            <div className="bg-[#030712]/90 rounded-lg p-3 font-code text-xs space-y-1 text-slate-300 border border-white/5">
+              <div><span className="text-cyan-400">import</span> torch.nn <span className="text-cyan-400">as</span> nn</div>
+              <div><span className="text-purple-400">class</span> <span className="text-yellow-300">NeuralTransformer</span>(nn.Module):</div>
+              <div className="pl-4 text-slate-400"># Initializing multi-head attention</div>
+              <div className="pl-4"><span className="text-purple-400">def</span> <span className="text-blue-400">forward</span>(self, x):</div>
+              <div className="pl-8 text-emerald-400">return self.attn_layer(x)</div>
+            </div>
+          </div>
         </motion.div>
       </div>
     </section>

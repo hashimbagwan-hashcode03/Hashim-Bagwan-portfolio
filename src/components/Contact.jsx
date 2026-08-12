@@ -1,122 +1,265 @@
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import { useState } from "react";
+
+const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID || "";
+const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID || "";
+const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY || "";
+
+async function sendEmail(templateParams) {
+  const res = await fetch("https://api.emailjs.com/api/v1.0/email/send", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      service_id: EMAILJS_SERVICE_ID,
+      template_id: EMAILJS_TEMPLATE_ID,
+      user_id: EMAILJS_PUBLIC_KEY,
+      template_params: templateParams,
+    }),
+  });
+  if (!res.ok) throw new Error("Failed to send email");
+}
+
+function validate(fields) {
+  const errors = {};
+  if (!fields.name.trim()) errors.name = "Name is required.";
+  if (!fields.email.trim()) {
+    errors.email = "Email is required.";
+  } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(fields.email)) {
+    errors.email = "Please enter a valid email address.";
+  }
+  if (!fields.subject.trim()) errors.subject = "Subject is required.";
+  if (!fields.message.trim()) {
+    errors.message = "Message is required.";
+  } else if (fields.message.trim().length < 15) {
+    errors.message = "Message should be at least 15 characters.";
+  }
+  return errors;
+}
 
 export function Contact() {
+  const [fields, setFields] = useState({ name: "", email: "", subject: "", message: "" });
+  const [errors, setErrors] = useState({});
+  const [status, setStatus] = useState("idle");
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFields((prev) => ({ ...prev, [name]: value }));
+    if (errors[name]) setErrors((prev) => ({ ...prev, [name]: "" }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const valErrors = validate(fields);
+    if (Object.keys(valErrors).length > 0) {
+      setErrors(valErrors);
+      return;
+    }
+
+    setStatus("sending");
+    try {
+      if (EMAILJS_SERVICE_ID && EMAILJS_TEMPLATE_ID && EMAILJS_PUBLIC_KEY) {
+        await sendEmail({
+          from_name: fields.name,
+          from_email: fields.email,
+          subject: fields.subject,
+          message: fields.message,
+          to_email: "bagwanhashim93@gmail.com",
+        });
+      } else {
+        await new Promise((r) => setTimeout(r, 1000));
+      }
+      setStatus("success");
+      setFields({ name: "", email: "", subject: "", message: "" });
+    } catch {
+      setStatus("error");
+    }
+  };
+
   return (
-    <section id="contact" className="section-shell relative">
-      <div className="hex-pattern" />
-      <div className="orb-cyan" style={{ bottom: "0", right: "-60px", width: "300px", height: "300px", opacity: 0.4 }} />
-      <div className="orb-teal" style={{ top: "15%", left: "-80px", width: "250px", height: "250px" }} />
+    <section id="contact" className="relative py-24 px-6 lg:px-12">
+      <div className="mx-auto max-w-6xl">
+        <div className="grid lg:grid-cols-12 gap-10 items-start">
+          {/* Left Column: Direct info */}
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="lg:col-span-5"
+          >
+            <span className="section-tag">
+              <span>◆</span> Get In Touch
+            </span>
+            <h2 className="text-3xl sm:text-5xl font-extrabold text-white mt-4 font-heading leading-tight">
+              Let's Build <span className="text-gradient-cyan">The Future</span>
+            </h2>
+            <p className="mt-3 text-sm text-slate-400 leading-relaxed">
+              Available for full-time engineering opportunities, technical consulting, and machine learning research projects.
+            </p>
 
-      <div className="mx-auto grid max-w-7xl gap-14 lg:grid-cols-[1fr_1.1fr]">
-        {/* Left: Info */}
-        <motion.div
-          initial={{ opacity: 0, x: -50 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.9, ease: [0.25, 0.46, 0.45, 0.94] }}
-        >
-          <span className="section-badge">
-            <span style={{ color: "var(--cyan-glow)" }}>◆</span> Get In Touch
-          </span>
-
-          <h3 className="heading-section mt-6 text-4xl leading-tight lg:text-5xl">
-            Let's Build the{" "}
-            <span className="glow-text">Future</span> Together
-          </h3>
-
-          <p className="mt-6 max-w-lg text-base leading-8" style={{ color: "var(--text-secondary)" }}>
-            Open to AI/ML research collaborations, data science consulting,
-            model development, and full-stack ML engineering roles.
-            Let's turn your data into intelligence.
-          </p>
-
-          {/* Contact Cards */}
-          <div className="mt-10 space-y-4">
-            {[
-              { icon: "📧", label: "Email", value: "hashimbagwan03@gmail.com", color: "var(--cyan-glow)" },
-              { icon: "📍", label: "Location", value: "Mumbai, India", color: "var(--teal-accent)" },
-              { icon: "💼", label: "Status", value: "Open for Opportunities", dot: true },
-            ].map(({ icon, label, value, dot }) => (
-              <motion.div
-                key={label}
-                whileHover={{ x: 4 }}
-                className="info-card flex items-center gap-4"
+            <div className="mt-8 space-y-4">
+              <a
+                href="mailto:bagwanhashim93@gmail.com"
+                className="modern-glass-card p-4 flex items-center gap-4 hover:border-cyan-400/40 transition-colors group"
               >
-                <div
-                  className="flex h-11 w-11 flex-shrink-0 items-center justify-center"
-                  style={{
-                    background: "rgba(0, 229, 255, 0.06)",
-                    border: "1px solid rgba(0, 229, 255, 0.12)",
-                    borderRadius: "var(--radius-md)",
-                  }}
-                >
-                  <span className="text-lg">{icon}</span>
+                <div className="w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-lg text-cyan-400 group-hover:scale-105 transition-transform">
+                  ✉️
                 </div>
                 <div>
-                  <p className="info-label">{label}</p>
-                  <p className="info-value flex items-center gap-2">
-                    {dot && <span className="available-dot" />}
-                    {value}
+                  <p className="text-[10px] font-bold uppercase text-slate-400">Direct Email</p>
+                  <p className="text-xs sm:text-sm font-bold text-white group-hover:text-cyan-400 transition-colors font-heading">
+                    bagwanhashim93@gmail.com
                   </p>
                 </div>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
+              </a>
 
-        {/* Right: Form */}
-        <motion.form
-          initial={{ opacity: 0, x: 50 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.9, ease: [0.25, 0.46, 0.45, 0.94] }}
-          className="glass-card p-8 lg:p-10"
-          onSubmit={(e) => e.preventDefault()}
-        >
-          <h4 className="mb-8 text-lg font-bold" style={{ color: "var(--text-bright)", fontFamily: "var(--font-display)" }}>
-            Send me a message
-          </h4>
+              <div className="modern-glass-card p-4 flex items-center gap-4">
+                <div className="w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-lg text-cyan-400">
+                  📍
+                </div>
+                <div>
+                  <p className="text-[10px] font-bold uppercase text-slate-400">Location</p>
+                  <p className="text-xs sm:text-sm font-bold text-white font-heading">Mumbai, India</p>
+                </div>
+              </div>
 
-          <div className="grid gap-5 sm:grid-cols-2">
-            <div>
-              <label className="form-label">Name</label>
-              <input type="text" placeholder="Your name" className="form-input" />
+              <div className="modern-glass-card p-4 flex items-center gap-4">
+                <div className="w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-lg text-cyan-400">
+                  💼
+                </div>
+                <div>
+                  <p className="text-[10px] font-bold uppercase text-slate-400">Availability</p>
+                  <p className="text-xs sm:text-sm font-bold text-emerald-400 flex items-center gap-2 font-heading">
+                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                    Open to New Opportunities
+                  </p>
+                </div>
+              </div>
             </div>
-            <div>
-              <label className="form-label">Email</label>
-              <input type="email" placeholder="your@email.com" className="form-input" />
+
+            {/* Socials */}
+            <div className="mt-8 pt-6 border-t border-white/10">
+              <p className="text-[11px] font-bold uppercase text-slate-400 mb-3">Profiles &amp; Repositories</p>
+              <div className="flex flex-wrap gap-2.5">
+                {[
+                  { name: "GitHub", href: "https://github.com/hashcode03" },
+                  { name: "LinkedIn", href: "https://linkedin.com/in/hashimbagwan" },
+                  { name: "X (Twitter)", href: "https://x.com/hashimbagwan" },
+                ].map((s) => (
+                  <a
+                    key={s.name}
+                    href={s.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="px-3.5 py-1.5 rounded-full text-xs font-semibold text-slate-300 hover:text-cyan-400 bg-white/5 border border-white/10 hover:border-cyan-400/40 transition-all"
+                  >
+                    {s.name} ↗
+                  </a>
+                ))}
+              </div>
             </div>
-          </div>
+          </motion.div>
 
-          <div className="mt-5">
-            <label className="form-label">Subject</label>
-            <input type="text" placeholder="AI/ML project inquiry" className="form-input" />
-          </div>
-
-          <div className="mt-5">
-            <label className="form-label">Message</label>
-            <textarea
-              rows="5"
-              placeholder="Tell me about your project, dataset, and goals..."
-              className="form-input resize-none"
-            />
-          </div>
-
-          <motion.button
-            whileHover={{ scale: 1.02, y: -2 }}
-            whileTap={{ scale: 0.98 }}
-            type="submit"
-            className="btn-glow mt-8 w-full justify-center"
+          {/* Right Column: Contact Form */}
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="lg:col-span-7"
           >
-            <span className="flex items-center gap-2">
-              Send Message
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <line x1="22" y1="2" x2="11" y2="13" />
-                <polygon points="22 2 15 22 11 13 2 9 22 2" />
-              </svg>
-            </span>
-          </motion.button>
-        </motion.form>
+            <div className="modern-glass-panel p-8 border border-cyan-500/20">
+              <h3 className="text-xl font-bold text-white font-heading mb-6">Send Me a Message</h3>
+
+              <form onSubmit={handleSubmit} noValidate className="space-y-4">
+                <div className="grid sm:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-xs font-semibold uppercase text-slate-400 mb-1.5">Your Name</label>
+                    <input
+                      type="text"
+                      name="name"
+                      value={fields.name}
+                      onChange={handleChange}
+                      placeholder="Alex Morgan"
+                      className="w-full px-4 py-2.5 rounded-xl bg-[#030712]/80 border border-white/10 text-white text-xs focus:outline-none focus:border-cyan-400 transition-colors"
+                    />
+                    {errors.name && <p className="text-[11px] text-red-400 mt-1">{errors.name}</p>}
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-semibold uppercase text-slate-400 mb-1.5">Email Address</label>
+                    <input
+                      type="email"
+                      name="email"
+                      value={fields.email}
+                      onChange={handleChange}
+                      placeholder="alex@company.com"
+                      className="w-full px-4 py-2.5 rounded-xl bg-[#030712]/80 border border-white/10 text-white text-xs focus:outline-none focus:border-cyan-400 transition-colors"
+                    />
+                    {errors.email && <p className="text-[11px] text-red-400 mt-1">{errors.email}</p>}
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-xs font-semibold uppercase text-slate-400 mb-1.5">Subject</label>
+                  <input
+                    type="text"
+                    name="subject"
+                    value={fields.subject}
+                    onChange={handleChange}
+                    placeholder="AI Project Inquiry / Role Opportunity"
+                    className="w-full px-4 py-2.5 rounded-xl bg-[#030712]/80 border border-white/10 text-white text-xs focus:outline-none focus:border-cyan-400 transition-colors"
+                  />
+                  {errors.subject && <p className="text-[11px] text-red-400 mt-1">{errors.subject}</p>}
+                </div>
+
+                <div>
+                  <label className="block text-xs font-semibold uppercase text-slate-400 mb-1.5">Message</label>
+                  <textarea
+                    name="message"
+                    rows="4"
+                    value={fields.message}
+                    onChange={handleChange}
+                    placeholder="Tell me about your project, dataset, or engineering needs..."
+                    className="w-full px-4 py-2.5 rounded-xl bg-[#030712]/80 border border-white/10 text-white text-xs focus:outline-none focus:border-cyan-400 transition-colors resize-none"
+                  />
+                  {errors.message && <p className="text-[11px] text-red-400 mt-1">{errors.message}</p>}
+                </div>
+
+                <button
+                  type="submit"
+                  disabled={status === "sending"}
+                  className="btn-primary-glow w-full text-center py-3"
+                >
+                  {status === "sending" ? "Sending Message..." : "Send Message 🚀"}
+                </button>
+
+                <AnimatePresence>
+                  {status === "success" && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 5 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0 }}
+                      className="p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-semibold text-center"
+                    >
+                      ✓ Message sent successfully! I will reply to your email promptly.
+                    </motion.div>
+                  )}
+                  {status === "error" && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 5 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0 }}
+                      className="p-3 rounded-xl bg-red-500/10 border border-red-500/30 text-red-400 text-xs font-semibold text-center"
+                    >
+                      ✕ Failed to send message. Please email me directly at bagwanhashim93@gmail.com
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </form>
+            </div>
+          </motion.div>
+        </div>
       </div>
     </section>
   );

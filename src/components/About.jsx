@@ -3,112 +3,104 @@ import profileImg from "../assets/profile.png";
 
 export function About() {
   return (
-    <section
-      id="about"
-      className="section-shell"
-      style={{ background: "linear-gradient(180deg, var(--bg-primary), var(--bg-secondary), var(--bg-primary))" }}
-    >
-      <div className="grid-bg" />
+    <section id="about" className="relative py-24 px-6 lg:px-12">
+      <div className="mx-auto max-w-6xl">
+        {/* Section Header */}
+        <div className="text-center max-w-2xl mx-auto mb-16">
+          <span className="section-tag">
+            <span>◆</span> Background &amp; Philosophy
+          </span>
+          <h2 className="text-3xl sm:text-5xl font-extrabold text-white mt-4 font-heading">
+            Engineering <span className="text-gradient-cyan">Reliable AI</span>
+          </h2>
+          <p className="mt-3 text-sm sm:text-base text-slate-400">
+            Bridging the gap between empirical machine learning research and enterprise software architecture.
+          </p>
+        </div>
 
-      {/* Orbs */}
-      <div className="orb-cyan" style={{ top: "10%", right: "-100px", width: "350px", height: "350px", opacity: 0.5 }} />
-
-      <div className="mx-auto grid max-w-7xl items-center gap-16 lg:grid-cols-[1fr_1.2fr]">
-        {/* ── Left: Image ── */}
-        <motion.div
-          initial={{ opacity: 0, x: -60 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true, amount: 0.25 }}
-          transition={{ duration: 1, ease: [0.25, 0.46, 0.45, 0.94] }}
-          className="relative"
-        >
-          <div className="glass-card overflow-hidden p-3">
-            <img
-              src={profileImg}
-              alt="Hashim Bagwan"
-              className="h-[480px] w-full object-cover"
-              style={{ borderRadius: "var(--radius-lg)" }}
-            />
-          </div>
-
-          {/* Floating badge */}
+        {/* Bento Grid */}
+        <div className="grid md:grid-cols-12 gap-6">
+          {/* Bento Item 1: Profile & Bio (Large Card - 7 cols) */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            whileInView={{ opacity: 1, scale: 1 }}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: 0.5, duration: 0.5 }}
-            className="absolute -bottom-5 -right-5 z-10"
+            transition={{ duration: 0.5 }}
+            className="md:col-span-7 modern-glass-card p-8 flex flex-col justify-between"
           >
-            <div className="glass-card px-6 py-4 text-center" style={{ borderRadius: "var(--radius-xl)" }}>
-              <p className="stat-glow text-3xl">5+</p>
-              <p className="text-[11px] font-semibold uppercase" style={{ letterSpacing: "0.15em", color: "var(--text-muted)" }}>
-                Years in AI/ML
+            <div>
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-12 h-12 rounded-full overflow-hidden border border-cyan-400/30">
+                  <img src={profileImg} alt="Hashim Bagwan" className="w-full h-full object-cover" />
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold text-white font-heading">Hashim Bagwan</h3>
+                  <p className="text-xs text-cyan-400 font-semibold">AI/ML Engineer &amp; Data Scientist</p>
+                </div>
+              </div>
+
+              <h4 className="text-xl font-bold text-slate-200 font-heading mb-4 leading-snug">
+                Dedicated to developing high-performance machine learning models and robust data pipelines.
+              </h4>
+
+              <p className="text-sm text-slate-400 leading-relaxed mb-4">
+                Based in Mumbai, India, I specialize in training, optimizing, and deploying complex neural network models. My methodology focuses on data quality, model interpretability, and low-latency inference.
               </p>
+              <p className="text-sm text-slate-400 leading-relaxed">
+                From fine-tuning specialized Large Language Models (LLMs) to engineering computer vision pipelines for automated analysis, I build solutions designed for high stability and real-world scale.
+              </p>
+            </div>
+
+            <div className="mt-8 pt-4 border-t border-white/10 flex flex-wrap items-center gap-4 text-xs font-semibold text-slate-300">
+              <span className="flex items-center gap-1.5 text-cyan-400">
+                <span className="w-1.5 h-1.5 rounded-full bg-cyan-400" /> Deep Learning
+              </span>
+              <span className="flex items-center gap-1.5 text-cyan-400">
+                <span className="w-1.5 h-1.5 rounded-full bg-cyan-400" /> NLP &amp; RAG
+              </span>
+              <span className="flex items-center gap-1.5 text-cyan-400">
+                <span className="w-1.5 h-1.5 rounded-full bg-cyan-400" /> MLOps
+              </span>
             </div>
           </motion.div>
 
-          {/* Decorative ring */}
+          {/* Bento Item 2: Core Focus Areas (5 cols) */}
           <motion.div
-            animate={{ rotate: 360 }}
-            transition={{ repeat: Infinity, duration: 25, ease: "linear" }}
-            className="deco-ring deco-ring-glow absolute -left-8 -top-8"
-            style={{ width: "100px", height: "100px" }}
-          />
-        </motion.div>
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="md:col-span-5 modern-glass-card p-6 flex flex-col justify-between"
+          >
+            <div>
+              <span className="text-xs font-bold text-cyan-400 uppercase tracking-wider">Specializations</span>
+              <h3 className="text-xl font-bold text-white font-heading mt-2 mb-6">Core Capabilities</h3>
 
-        {/* ── Right: Content ── */}
-        <motion.div
-          initial={{ opacity: 0, x: 60 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true, amount: 0.25 }}
-          transition={{ duration: 1, ease: [0.25, 0.46, 0.45, 0.94] }}
-        >
-          <span className="section-badge">
-            <span style={{ color: "var(--cyan-glow)" }}>◆</span> About Me
-          </span>
+              <div className="space-y-4">
+                <div className="p-3.5 rounded-xl bg-white/5 border border-white/5 hover:border-cyan-400/30 transition-colors">
+                  <div className="flex items-center gap-2 text-sm font-bold text-white font-heading mb-1">
+                    <span>💬</span> LLM &amp; RAG Engineering
+                  </div>
+                  <p className="text-xs text-slate-400">Fine-tuning open weights, building vector search indexes, and custom agentic workflows.</p>
+                </div>
 
-          <h3 className="heading-section mt-6 text-4xl lg:text-5xl">
-            The Mind Behind{" "}
-            <span className="glow-text">The Models</span>
-          </h3>
+                <div className="p-3.5 rounded-xl bg-white/5 border border-white/5 hover:border-cyan-400/30 transition-colors">
+                  <div className="flex items-center gap-2 text-sm font-bold text-white font-heading mb-1">
+                    <span>👁️</span> Computer Vision Systems
+                  </div>
+                  <p className="text-xs text-slate-400">Vision Transformers, object detection, and real-time image analysis pipelines.</p>
+                </div>
 
-          <p className="mt-7 text-base leading-8" style={{ color: "var(--text-secondary)" }}>
-            I'm a passionate AI/ML Engineer and Data Scientist based in Mumbai, India.
-            With deep expertise in deep learning, natural language processing, and
-            computer vision, I build intelligent systems that solve real-world problems
-            at scale.
-          </p>
-
-          <p className="mt-4 text-base leading-8" style={{ color: "var(--text-secondary)" }}>
-            From training transformer models on massive datasets to deploying 
-            production ML pipelines on cloud infrastructure — I obsess over model 
-            accuracy, data quality, and system reliability. Every project is an 
-            opportunity to push the frontier of what AI can achieve.
-          </p>
-
-          {/* Info Cards */}
-          <div className="mt-10 grid gap-4 sm:grid-cols-3">
-            {[
-              { icon: "🎓", label: "Education", value: "M.S. Data Science" },
-              { icon: "📍", label: "Location", value: "Mumbai, India" },
-              { icon: "🧠", label: "Focus", value: "AI/ML + Research" },
-            ].map(({ icon, label, value }, i) => (
-              <motion.div
-                key={label}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 + 0.3, duration: 0.5 }}
-                whileHover={{ y: -4 }}
-                className="info-card"
-              >
-                <div className="mb-2 text-xl">{icon}</div>
-                <p className="info-label">{label}</p>
-                <p className="info-value">{value}</p>
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
+                <div className="p-3.5 rounded-xl bg-white/5 border border-white/5 hover:border-cyan-400/30 transition-colors">
+                  <div className="flex items-center gap-2 text-sm font-bold text-white font-heading mb-1">
+                    <span>⚡</span> Model Optimization &amp; MLOps
+                  </div>
+                  <p className="text-xs text-slate-400">Quantization, ONNX conversion, containerized inference, and automated CI/CD for ML.</p>
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        </div>
       </div>
     </section>
   );

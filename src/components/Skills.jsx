@@ -1,124 +1,114 @@
 import { motion } from "framer-motion";
 
-const skills = [
-  {
-    name: "Python",
-    icon: "🐍",
-    level: 96,
-    desc: "Core language for data science, ML model development, scripting, and building end-to-end AI pipelines.",
-  },
-  {
-    name: "TensorFlow / Keras",
-    icon: "🔶",
-    level: 92,
-    desc: "Building and training deep neural networks for classification, regression, and generative models at scale.",
-  },
-  {
-    name: "PyTorch",
-    icon: "🔥",
-    level: 90,
-    desc: "Research-grade deep learning: custom architectures, transformers, GANs, and reinforcement learning agents.",
-  },
-  {
-    name: "NLP & LLMs",
-    icon: "💬",
-    level: 88,
-    desc: "Fine-tuning large language models, building RAG pipelines, sentiment analysis, and text generation systems.",
-  },
-  {
-    name: "Computer Vision",
-    icon: "👁️",
-    level: 87,
-    desc: "Object detection, image segmentation, facial recognition, and real-time video analytics with OpenCV & YOLO.",
-  },
-  {
-    name: "Data Analysis",
-    icon: "📊",
-    level: 94,
-    desc: "Advanced analytics with Pandas, NumPy, Scikit-learn. Statistical modeling, A/B testing, and feature engineering.",
-  },
-  {
-    name: "MLOps & Cloud",
-    icon: "☁️",
-    level: 85,
-    desc: "Model deployment on AWS/GCP, CI/CD for ML, Docker, Kubernetes, MLflow tracking, and monitoring systems.",
-  },
-  {
-    name: "SQL & Big Data",
-    icon: "🗄️",
-    level: 89,
-    desc: "Complex queries, data warehousing, Spark, and handling large-scale datasets for training and analytics.",
-  },
-];
-
 export function Skills() {
+  const skillCategories = [
+    {
+      category: "Machine Learning & Deep Learning",
+      icon: "🧠",
+      items: [
+        { name: "PyTorch & TensorFlow", level: 95 },
+        { name: "Scikit-Learn & XGBoost", level: 92 },
+        { name: "Deep Neural Networks (CNN/RNN/ViT)", level: 90 },
+      ],
+    },
+    {
+      category: "NLP & LLM Engineering",
+      icon: "💬",
+      items: [
+        { name: "LangChain & LlamaIndex", level: 88 },
+        { name: "RAG & Vector DBs (Chroma/FAISS)", level: 90 },
+        { name: "BERT & HuggingFace Fine-Tuning", level: 87 },
+      ],
+    },
+    {
+      category: "Computer Vision",
+      icon: "👁️",
+      items: [
+        { name: "OpenCV & Image Processing", level: 89 },
+        { name: "YOLO Object Detection", level: 88 },
+        { name: "Grad-CAM & Explainable AI", level: 85 },
+      ],
+    },
+    {
+      category: "MLOps & Cloud Infrastructure",
+      icon: "☁️",
+      items: [
+        { name: "Docker & Kubernetes", level: 86 },
+        { name: "AWS (SageMaker, S3, EC2)", level: 85 },
+        { name: "MLflow & CI/CD Pipelines", level: 84 },
+      ],
+    },
+    {
+      category: "Data Science & Analytics",
+      icon: "📊",
+      items: [
+        { name: "Pandas & NumPy", level: 96 },
+        { name: "SQL & Data Warehousing", level: 90 },
+        { name: "Exploratory Data Analysis", level: 94 },
+      ],
+    },
+    {
+      category: "Programming & Tools",
+      icon: "⚡",
+      items: [
+        { name: "Python (Advanced)", level: 96 },
+        { name: "C++ & Algorithms", level: 82 },
+        { name: "Git, Linux, Bash Scripting", level: 90 },
+      ],
+    },
+  ];
+
   return (
-    <section id="skills" className="section-shell relative">
-      <div className="hex-pattern" />
-      <div className="orb-teal" style={{ top: "-60px", left: "-80px", width: "300px", height: "300px" }} />
-      <div className="orb-cyan" style={{ bottom: "-40px", right: "-60px", width: "250px", height: "250px", opacity: 0.4 }} />
-
-      <div className="mx-auto max-w-7xl">
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7 }}
-          className="text-center"
-        >
-          <span className="section-badge">
-            <span style={{ color: "var(--cyan-glow)" }}>◆</span> Technical Arsenal
+    <section id="skills" className="relative py-24 px-6 lg:px-12">
+      <div className="mx-auto max-w-6xl">
+        <div className="text-center max-w-2xl mx-auto mb-16">
+          <span className="section-tag">
+            <span>◆</span> Technical Stack
           </span>
-          <h3 className="heading-section mt-6 text-4xl lg:text-5xl">
-            Skills &{" "}
-            <span className="glow-text">Expertise</span>
-          </h3>
-          <p className="mx-auto mt-5 max-w-2xl text-base" style={{ color: "var(--text-secondary)" }}>
-            Tools and technologies I use daily to build intelligent systems,
-            train state-of-the-art models, and deploy production ML pipelines.
+          <h2 className="text-3xl sm:text-5xl font-extrabold text-white mt-4 font-heading">
+            Skills &amp; <span className="text-gradient-cyan">Frameworks</span>
+          </h2>
+          <p className="mt-3 text-sm sm:text-base text-slate-400">
+            A comprehensive breakdown of tools, libraries, and platforms I work with daily.
           </p>
-        </motion.div>
+        </div>
 
-        {/* Skills Grid */}
-        <div className="mt-16 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {skills.map((skill, i) => (
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {skillCategories.map((cat, idx) => (
             <motion.div
-              key={skill.name}
-              initial={{ opacity: 0, y: 25 }}
+              key={cat.category}
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: i * 0.06 }}
-              whileHover={{ y: -6, scale: 1.02 }}
-              className="skill-card"
+              transition={{ duration: 0.4, delay: idx * 0.08 }}
+              className="modern-glass-card p-6 flex flex-col justify-between"
             >
-              <div className="flex items-center gap-3 mb-4">
-                <div className="skill-icon-wrap">
-                  <span className="text-lg">{skill.icon}</span>
+              <div>
+                <div className="flex items-center gap-3 pb-4 mb-4 border-b border-white/10">
+                  <span className="text-2xl">{cat.icon}</span>
+                  <h3 className="text-base font-bold text-white font-heading">{cat.category}</h3>
                 </div>
-                <div>
-                  <h4 className="text-sm font-bold" style={{ color: "var(--text-bright)", fontFamily: "var(--font-display)" }}>
-                    {skill.name}
-                  </h4>
-                  <p className="text-xs font-medium" style={{ color: "var(--cyan-glow)" }}>
-                    {skill.level}%
-                  </p>
+
+                <div className="space-y-4">
+                  {cat.items.map((item) => (
+                    <div key={item.name}>
+                      <div className="flex justify-between text-xs font-semibold mb-1">
+                        <span className="text-slate-300">{item.name}</span>
+                        <span className="text-cyan-400">{item.level}%</span>
+                      </div>
+                      <div className="h-1.5 w-full bg-[#030712] rounded-full overflow-hidden border border-white/5">
+                        <motion.div
+                          initial={{ width: 0 }}
+                          whileInView={{ width: `${item.level}%` }}
+                          viewport={{ once: true }}
+                          transition={{ duration: 1, ease: "easeOut" }}
+                          className="h-full rounded-full bg-gradient-to-r from-cyan-400 to-blue-500"
+                        />
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </div>
-
-              <div className="progress-bar mb-4">
-                <motion.div
-                  className="progress-fill"
-                  initial={{ width: 0 }}
-                  whileInView={{ width: `${skill.level}%` }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 1.4, delay: i * 0.08, ease: [0.25, 0.46, 0.45, 0.94] }}
-                />
-              </div>
-
-              <p className="text-xs leading-6" style={{ color: "var(--text-muted)" }}>
-                {skill.desc}
-              </p>
             </motion.div>
           ))}
         </div>
